@@ -105,7 +105,7 @@ def calculate_distance():
         embedding[word] = np.asarray(vec, dtype='float32')
         vocab.append(word)
     data = {}
-    matrix = np.zeros((len(vocab), len(vocab))).astype('float32')  # (35739,35739)
+    matrix = np.zeros((len(vocab), len(vocab))).astype('float32')
     for i in tqdm(range(0, len(vocab))):
         matrix[i][i] = 0.
         for j in range(i + 1, len(vocab)):
@@ -280,7 +280,7 @@ def eval(word):
     print(old_top_k)
     print(new_top_k)
 
-    tsne = TSNE(perplexity=3, metric='cosine', square_distances=True)
+    tsne = TSNE(perplexity=3, metric='cosine')
     old = tsne.fit_transform([old_embedding[i[0]] for i in old_top_k] + [old_embedding[word]])
     new = tsne.fit_transform([new_embedding[i[0]] for i in new_top_k] + [new_embedding[word]])
     old_word_list = [i[0] for i in old_top_k] + [word]
@@ -301,18 +301,26 @@ def eval(word):
         plt.annotate(new_word_list[i], xy=(x2[i], y2[i]),
                      xytext=(x2[i] + 0.1, y2[i] + 0.1))  # 这里xy是需要标记的坐标，xytext是对应的标签坐标
     plt.title('new')
+    plt.savefig('./result/' + word)
     plt.show()
 
 
-dataset_vocab = load_vocab()  # 6495
-lexicon = load_lexicon()
-lexicon_vocab = list(lexicon.keys())  # 36096
-vocab = list(set(dataset_vocab).intersection(set(lexicon_vocab)))  # 1992
-# load_glove(lexicon_vocab) # 31442
-# calculate_distance()
-# find_top_k()
-# similarity_ranking()
-refine(alpha=1, beta=0.1)
-# eval('recommend')
-# eval('satisfied')
-# eval('unlucky')
+def main():
+    process = False  # do not change unless you use another lexicon or embedding
+    train = False  # you can choose alpha and beta to train new embeddings
+    if process:
+        lexicon = load_lexicon()
+        lexicon_vocab = list(lexicon.keys())  # 36096
+        load_glove(lexicon_vocab)  # 31442
+        calculate_distance()
+        find_top_k()
+        similarity_ranking()
+    if train:
+        refine(alpha=1, beta=0.1)
+    eval('recommend')
+    eval('satisfied')
+    eval('unlucky')
+
+
+if __name__ == '__main__':
+    main()
