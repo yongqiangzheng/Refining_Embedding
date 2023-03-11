@@ -10,17 +10,16 @@ source .venv/bin/acitvate
 sh run.sh
 ```
 
-## Result
-### t-SNE visualization
+## t-SNE visualization
 
-- good
+### good
 ![fig1](/result/good.png)
 
-- bad
-![fig1](/result/bad.png)
+### bad
+![fig2](/result/bad.png)
 
-- fortunate
-![fig1](/result/fortunate.png)
+### fortunate
+![fig3](/result/fortunate.png)
 
-- unfortunate
-![fig1](/result/unfortunate.png)
+### unfortunate
+![fig4](/result/unfortunate.png)
