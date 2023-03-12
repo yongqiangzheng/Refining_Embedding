@@ -6,13 +6,16 @@
 Refine GloVe word embedding by Vader lexicon to learn sentiment information.
 
 ## Usage
-Download GloVe [here](https://nlp.stanford.edu/data/glove.840B.300d.zip)
 
 ```
 python -m venv .venv
 source .venv/bin/acitvate
 sh run.sh
 ```
+
+download GloVe [here](https://nlp.stanford.edu/data/glove.840B.300d.zip)
+
+unzip and put the file into `./glove` floder
 
 ## t-SNE visualization
 
